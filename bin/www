@@ -67,6 +67,15 @@ io.on('connection', function (socket) {
       })
   })
 
+  socket.on('sens_data', function (data) {
+    console.log("sens_data", data);
+    if(data.type == "req"){
+      io.emit("sens_data", data);
+    }else{
+      io.sockets.emit('sens_data', data);
+    }
+  });
+
   socket.on('disconnect', function (data) {
       console.log(data);
   })

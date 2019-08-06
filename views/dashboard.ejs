@@ -26,11 +26,11 @@
             </button>
           </div>
           <div class="row" style="margin-bottom: +20px">          
-            <button id="step_up" type="button" class="btn btn-outline-primary data__" style="display: none" style="margin-bottom: +10px">
-              NEXT
+            <button id="step_up" type="button" class="btn btn-outline-primary data__" style="margin-right:15px;margin-bottom: +10px">
+              START
             </button>
             
-            <button id="step_down" type="button" class="btn btn-outline-danger data__" style="display: none" style="margin-bottom: +10px">
+            <button id="step_down" type="button" class="btn btn-outline-danger data__" style="display:none; margin-bottom: +10px">
               FINISH
             </button>
           </div>
@@ -85,11 +85,11 @@
 
                       <div class="col">
                           <p class="lead">Servis Atas</p>
-                          <h1 class="display-4">00</h1>
+                          <h1 class="display-4" id="s1">00</h1>
                       </div>
                       <div class="col">
                           <p class="lead">Servis Bawah</p>
-                          <h1 class="display-4">00</h1>
+                          <h1 class="display-4" id="s2">00</h1>
                       </div>
                       
                       <div class="w-100"></div>
@@ -97,11 +97,11 @@
 
                       <div class="col">
                           <p class="lead">Pasing Atas</p>
-                          <h1 class="display-4">00</h1>
+                          <h1 class="display-4" id="s3">00</h1>
                       </div>
                       <div class="col">
                           <p class="lead">Pasing Bawah</p>
-                          <h1 class="display-4">00</h1>
+                          <h1 class="display-4" id="s4">00</h1>
                       </div>
                       
                       <div class="w-100"></div>
@@ -109,11 +109,11 @@
 
                       <div class="col">
                           <p class="lead">Smash</p>
-                          <h1 class="display-4">00</h1>
+                          <h1 class="display-4" id="s5">00</h1>
                       </div>
                       <div class="col">
                           <p class="lead">Block</p>
-                          <h1 class="display-4">00</h1>
+                          <h1 class="display-4" id="s6">00</h1>
                       </div>
 
                       <!-- <div class="w-100"></div>
@@ -137,10 +137,8 @@
                   <th scope="col">Data</th>
                 </tr>
               </thead>
-              <tbody>
-
+              <tbody>                
                 
-              
               </tbody>
             </table>
           </div>
@@ -167,7 +165,10 @@
 
         // var socket = io.connect(window.location.hostname);
         var socket = io.connect(window.location.origin);
-        
+        let is_start = false;
+        let state = 0;
+        train_data = []
+
 
         socket_service();
 
@@ -183,10 +184,77 @@
 
 
         socket.on('add_point', function (data) {
-            console.log(data)
-            console.log(data)
             $("#txt").text(`${data.name} :: ${data.point}`)
         });
+
+
+        socket.on('sens_data', function (data) {
+          // console.log(data);
+          if(data.type == "res"){
+            if(data.state == 1){
+              train_data[0] = data.val;              
+            }if(data.state == 2){
+              train_data[1] = data.val;
+            }if(data.state == 3){
+              train_data[2] = data.val;
+            }if(data.state == 4){
+              train_data[3] = data.val;
+            }if(data.state == 5){
+              train_data[4] = data.val;
+            }if(data.state == 6){
+              train_data[5] = data.val;
+            }
+
+            $("#s"+data.state).text(data.val);
+          }          
+        });
+        
+
+        if(is_start == false){
+          $("#step_up").text("START");
+          $("#step_down").hide();
+        }
+        
+        $("#step_up").click(function(){
+          is_start = true;
+          $("#step_down").show();
+          $("#step_up").text("NEXT");
+          
+          state++;
+
+          dt = {
+            type : "req",
+            state : state,
+            // val : for res
+          }
+          socket.emit('sens_data', dt);
+          
+        });
+
+
+        $("#step_down").click(function () {
+          // if(train_data.length == 6){
+            dt = {
+              data_train : {
+                "servis_atas": train_data[0],
+                "servis_bawah": train_data[1],
+                "passing_atas": train_data[2],
+                "passing_bawah": train_data[3],
+                "smash": train_data[4],
+                "block": train_data[5],
+              },
+              data_user:{
+                First_name: $("#fn").val(),
+                Last_name: $("#ln").val(),
+                Asal_Sekolah: $("#sc").val(),
+                Umur: $("#ag").val(),
+                Berat_Badan: $("#wg").val(),
+                Tinggi_Badan: $("#hg").val()
+              }
+            }
+          // }
+          //post data to fs
+        })
 
 
         $("#open_form").click(function(){
