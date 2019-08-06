@@ -25,6 +25,7 @@ let fs = require("../api/sdk/fs.js")
 
 
 global.io = require('socket.io')(server);
+console.log("APP PORT ::" + port);
 
 // io.configure(function () {
 //   io.set("transports", ["xhr-polling"]);
