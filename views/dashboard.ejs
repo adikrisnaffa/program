@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+  </head>
+  <body>
+    <div class="container-fluid" style="margin-top: +50px">
+
+
+      <div class="bd-example-row">
+      <div class="bd-example">
+      <div class="container">
+        
+          <div class="w-100"></div>
+          <div class="container-fluid" style="margin-top: +10px"></div>
+          <div class="col">
+          <button id="open_form" type="button" class="btn btn-primary">Add User</button>
+          </div>
+
+      <div class="row">
+
+        <!-- <div class="bd-example"> -->
+             <form>
+        
+                <div class="alert alert-success" role="alert">
+                    <h4 class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">HASIL TEST 
+                        
+
+                    </h4>
+                    <p></p>
+                    <hr>
+                    <p class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                      Terimakasih Telah Berlatih Pada Hari Ini
+                      Tetap Semangat Berlatih :)
+                    </p>
+                  </div>
+
+
+                <div class="container">
+                    <div class="row">
+
+                      <div class="col">
+                          <p class="lead">Servis Atas</p>
+                          <h1 class="display-4">21</h1>
+                      </div>
+                      <div class="col">
+                          <p class="lead">Servis Bawah</p>
+                          <h1 class="display-4">43</h1>
+                      </div>
+                      
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+
+                      <div class="col">
+                          <p class="lead">Pasing Atas</p>
+                          <h1 class="display-4">25</h1>
+                      </div>
+                      <div class="col">
+                          <p class="lead">Pasing Bawah</p>
+                          <h1 class="display-4">13</h1>
+                      </div>
+                      
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+
+                      <div class="col">
+                          <p class="lead">Smash</p>
+                          <h1 class="display-4">25</h1>
+                      </div>
+                      <div class="col">
+                          <p class="lead">Block</p>
+                          <h1 class="display-4">23</h1>
+                      </div>
+
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+
+                      <div class="col">
+                          <button id="add_data" type="button" class="btn btn-primary">Main Menu</button>
+                      </div>
+
+                      </div>
+                      </div>
+            </form>
+          </div>
+
+
+
+    </div>
+    <!-- <input type="text"  id="name" placeholder="name"/>
+    <br/>
+    <button id=" count_up" type="button" class="btn btn-outline-primary">Count Up</button>
+    <br/>
+    <span id="txt"> *** </span> -->
+    <br/>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+
+    <script>
+        var arr = window.location.href.split("/");
+        var result = arr[0] + "//" + arr[2];
+        var socket = io.connect(result);
+
+        socket_service();
+
+        function socket_service() {
+            socket.emit('connection', 'a user connected');
+
+            socket.on('message', function (data) {
+                console.log(data)
+            });
+
+            socket.emit('disconnect', 'a user disconnected');
+        }
+
+
+        socket.on('add_point', function (data) {
+            console.log(data)
+            console.log(data)
+            $("#txt").text(`${data.name} :: ${data.point}`)
+        });
+
+
+        $("#open_form").click(function(){
+          form_swal()
+        })
+
+        function form_swal(){
+          html = `
+          <form>
+              <d  iv class="container">
+                <div class="row">
+
+                    <div class="col">
+                        <input type="text" class="form-control" name="First_name" id="First_name" placeholder="First name" required="">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="Last_name" id="Last_name" placeholder="Last name" required="">
+                    </div>
+
+                    <div class="w-100"></div>
+                    <div class="container-fluid" style="margin-top: +10px"></div>
+
+                    <div class="col">
+                        <input type="text" class="form-control" name="Asal_Sekolah" id="Asal_Sekolah" placeholder="Asal Sekolah" aria-describedby="inputGroupPrepend2" required="">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="Umur" id="Umur" placeholder="Umur" required="">
+                    </div>
+
+                    <div class="w-100"></div>
+                    <div class="container-fluid" style="margin-top: +10px"></div>
+
+                    <div class="col">
+                          <input type="text" class="form-control" name="Tinggi_Badan" id="Tinggi_Badan" placeholder="Tinggi Badan" required="">
+                    </div>
+                    <div class="col">
+                          <input type="text" class="form-control" name="Berat_Badan" id="Berat_Badan" placeholder="Berat Badan" required="">
+                    </div>
+
+                    <div class="w-100"></div>
+                    <div class="container-fluid" style="margin-top: +10px"></div>
+
+                    <div class="col">
+                      <button type="button" class="btn btn-primary add_data">Add</button>
+                    </div>
+                    
+                    </div>
+                </div>
+
+                <div class="container-fluid" style="margin-top: +20px"></div>   
+
+            </form>
+          `;
+          
+          Swal.fire({
+            // title: '<strong>HTML <u>example</u></strong>',
+            // type: 'info',
+            html: html,
+            showCloseButton: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          })
+        }
+              
+        a = 0;
+        $(document).on("click", ".add_data",function(){//id # class .
+
+            fn = $("#First_name").val();
+            ln = $("#Last_name").val();
+            ass = $("#Asal_Sekolah").val();
+            u = $("#Umur").val();
+            tb = $("#Tinggi_Badan").val();
+            bb = $("#Berat_Badan").val();
+
+            dt = {
+              "First_name": fn,
+              "Last_name": ln,
+              "Asal_Sekolah": ass,
+              "Umur": u,
+              "Tinggi_Badan": tb,
+              "Berat_Badan": bb
+            }
+
+            // console.log(dt)
+            $.post("/api/add_point", dt, function(res){
+                if(res.key){
+
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'success',
+                    title: 'Stored in successfully'
+                  })
+
+                  get_dt_by_key(res.key)
+                }
+            })
+            
+        });
+
+
+
+        function get_dt_by_key(k){
+          $.get(`/api/get_point_data_by_key/${k}`).done(function(res){
+            console.log(res)
+          })
+        }
+
+          
+    </script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
