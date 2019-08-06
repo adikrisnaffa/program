@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <div class="container-fluid" style="margin-top: +50px">
+
+
+
+      <div class="bd-example-row">
+      <div class="bd-example">
+      <div class="container">
+      <div class="row">
+
+        <!-- <div class="bd-example"> -->
+            <form>
+
+                <div class="container">
+                    <div class="row">
+                      <div class="col">
+                          <input type="text" class="form-control" name="First_name" id="First_name" placeholder="First name" required="">
+                      </div>
+                      <div class="col">
+                          <input type="text" class="form-control" name="Last_name"  id="Last_name" placeholder="Last name" required="">
+                      </div>
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+                      <div class="col">
+                          <input type="text" class="form-control" name="Asal_Sekolah" id="Asal_Sekolah" placeholder="Asal Sekolah" aria-describedby="inputGroupPrepend2" required="">
+                      </div>
+                      <div class="col">
+                          <input type="text" class="form-control" name="Umur" id="Umur" placeholder="Umur" required="">
+                      </div>
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="Tinggi_Badan" id="Tinggi_Badan" placeholder="Tinggi Badan" required="">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="Berat_Badan" id="Berat_Badan" placeholder="Berat Badan" required="">
+                        </div>
+                        <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+                      <div class="col">
+                      <button id="add_data" type="button" class="btn btn-primary">Add</button>
+                      </div>
+                      </div>
+                  </div>
+      
+                  <div class="container-fluid" style="margin-top: +20px"></div>   
+
+            </form>
+          </div>
+
+          
+
+    </div>
+
+    <!-- <input type="text"  id="name" placeholder="name"/>
+    <br/>
+    <button id="count_up" type="button" class="btn btn-outline-primary">Count Up</button>
+    <br/>
+    <span id="txt"> *** </span> -->
+
+    <br/>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+
+
+    <script>
+        var arr = window.location.href.split("/");
+        var result = arr[0] + "//" + arr[2];
+        var socket = io.connect(result);
+
+        socket_service();
+
+        function socket_service() {
+            socket.emit('connection', 'a user connected');
+
+            socket.on('message', function (data) {
+                console.log(data)
+            });
+
+            socket.emit('disconnect', 'a user disconnected');
+        }
+
+
+        socket.on('add_point', function (data) {
+            console.log(data)
+            console.log(data)
+            $("#txt").text(`${data.name} :: ${data.point}`)
+        })
+
+        a = 0;
+        $("#add_data").click(function(){//id # class .
+            // a++;
+            fn = $("#First_name").val();
+            ln = $("#Last_name").val();
+            ass = $("#Asal_Sekolah").val();
+            u = $("#Umur").val();
+            tb = $("#Tinggi_Badan").val();
+            bb = $("#Berat_Badan").val();
+
+            dt = {
+              "First_name": fn,
+              "Last_name": ln,
+              "Asal_Sekolah": ass,
+              "Umur": u,
+              "Tinggi_Badan": tb,
+              "Berat_Badan": bb
+            //   "point": a
+
+            }
+            $.post("/api/add_point", dt, function(res){
+                console.log(res)
+            })
+        })
+    </script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
