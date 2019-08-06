@@ -112,8 +112,9 @@
         var arr = window.location.href.split("/");
         var result = arr[0] + "//" + arr[2];
 
-        var socket = io.connect(window.location.hostname);
-        // var socket = io.connect(result);
+        // var socket = io.connect(window.location.hostname);
+        var socket = io.connect(window.location.origin);
+        
 
         socket_service();
 
