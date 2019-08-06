@@ -26,6 +26,11 @@ let fs = require("../api/sdk/fs.js")
 
 global.io = require('socket.io')(server);
 
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+});
+
 io.on('connection', function (socket) {
 
   socket.on('connection', function (data) {
