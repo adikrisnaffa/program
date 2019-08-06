@@ -21,11 +21,27 @@
         
 
           <div class="row">
-            <button id="open_form" type="button" class="btn btn-outline-primary" style="margin-bottom: +10px">Add User</button>
-        <!-- <div class="bd-example"> -->
+            <button id="open_form" type="button" class="btn btn-outline-primary" style="margin-bottom: +10px">
+              Add User
+            </button>
+          </div>
+          <div class="row" style="margin-bottom: +20px">          
+            <button id="step_up" type="button" class="btn btn-outline-primary data__" style="display: none" style="margin-bottom: +10px">
+              NEXT
+            </button>
+            
+            <button id="step_down" type="button" class="btn btn-outline-danger data__" style="display: none" style="margin-bottom: +10px">
+              FINISH
+            </button>
+          </div>
+
+
+
+          
+          <div class="row">
             <form>
         
-                <div class="alert alert-success" id="alert_" style="display: none" role="alert">
+                <div class="alert alert-success data__" style="display: none" role="alert">
                     <h4 class="pricing-header pb-md-4 mx-auto text-center">
                       IDENTITAS USER   
                     </h4>
@@ -64,7 +80,7 @@
                 </div>
 
 
-                <div class="container text-center">
+                <div class="container text-center data__" style="display: none">
                     <div class="row">
 
                       <div class="col">
@@ -108,8 +124,25 @@
                       </div> -->
 
                       </div>
-                      </div>
+                </div>
             </form>
+          </div>
+
+          <div class="row">
+            <table class="table table-striped" id="table_data">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Users</th>
+                  <th scope="col">Data</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                
+              
+              </tbody>
+            </table>
           </div>
 
 
@@ -263,13 +296,45 @@
 
         function get_dt_by_key(k){
           $.get(`/api/get_point_data_by_key/${k}`).done(function(res){
-            $("#alert_").show().attr("key", res.key);
+            $(".data__").show().attr("key", res.key);
+            $("#open_form").hide();
+
             $("#fn").val(res.First_name);
             $("#ln").val(res.Last_name);
             $("#sc").val(res.Asal_Sekolah);
             $("#ag").val(res.Umur);
             $("#wg").val(res.Berat_Badan);
             $("#hg").val(res.Tinggi_Badan);
+            
+          })
+        }
+
+
+        get_all_data();
+        let id = 1;
+
+        function get_all_data(){
+          $.get(`/api/get_point_data`).done(function (res) {
+              $("#table_data tbody").empty();
+              res.forEach((v)=>{
+                let el = `
+                  <tr>
+                    <th scope="row">${id}</th>
+                    <td>
+                      <b>${v.data.First_name} ${v.data.Last_name}</b><br/>
+                      ${v.data.Umur} Years Old <br/>
+                      ${v.data.Berat_Badan} Kg / ${v.data.Tinggi_Badan} cm  
+                    </td>
+                    <td>
+                      <span>State 1 = 10 </span><br/>
+                      <span>State 2 = 10 </span><br/>
+                      <span>State 3 = 10 </span><br/>
+                    </td>
+                  </tr>
+                `;
+                $("#table_data tbody").append(el);
+                id++;
+              })
           })
         }
 
