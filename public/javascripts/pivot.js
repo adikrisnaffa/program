@@ -34,7 +34,13 @@ function load_protocol_data(temp=null) {
                   "Height": v.data.Tinggi_Badan,
                   "School": v.data.Asal_Sekolah,
                   "Age": v.data.Umur,
-                  "Weight": v.data.Berat_Badan
+                  "Weight": v.data.Berat_Badan,
+                  "servis_atas": v.data.servis_atas,
+                  "servis_bawah": v.data.servis_bawah,
+                  "passing_atas": v.data.passing_atas,
+                  "passing_bawah": v.data.passing_bawah,
+                  "smash": v.data.smash,
+                  "block": v.data.block,
               })
           })
         //   console.log(dt);

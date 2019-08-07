@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <title>Dashboard</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -167,7 +167,8 @@
         var socket = io.connect(window.location.origin);
         let is_start = false;
         let state = 0;
-        train_data = []
+        let train_data = [2, 1, 1, 2, -1, 3];
+        let sel_key  = null;
 
 
         socket_service();
@@ -232,26 +233,32 @@
         });
 
 
-        $("#step_down").click(function () {
+        $(document).on("click", "#step_down", function () {
           // if(train_data.length == 6){
             dt = {
-              data_train : {
+                "key" : $(this).attr("key"),
                 "servis_atas": train_data[0],
                 "servis_bawah": train_data[1],
                 "passing_atas": train_data[2],
                 "passing_bawah": train_data[3],
                 "smash": train_data[4],
                 "block": train_data[5],
-              },
-              data_user:{
-                First_name: $("#fn").val(),
-                Last_name: $("#ln").val(),
-                Asal_Sekolah: $("#sc").val(),
-                Umur: $("#ag").val(),
-                Berat_Badan: $("#wg").val(),
-                Tinggi_Badan: $("#hg").val()
-              }
+                "First_name": $("#fn").val(),
+                "Last_name": $("#ln").val(),
+                "Asal_Sekolah": $("#sc").val(),
+                "Umur": $("#ag").val(),
+                "Berat_Badan": $("#wg").val(),
+                "Tinggi_Badan": $("#hg").val()
             }
+
+            $.post("/api/update_user_data", dt, function(res){
+              if(res){
+                  notif("Stored Successfully");
+                  setTimeout(function () {
+                    location.reload();
+                  }, 1000);
+              }
+            })
           // }
           //post data to fs
         })
@@ -263,50 +270,50 @@
 
         function form_swal(){
           html = `
-          <form>
-              <div class="container">
-                <div class="row">
+            <form>
+                <div class="container">
+                  <div class="row">
 
-                    <div class="col">
-                        <input type="text" class="form-control" name="First_name" id="First_name" placeholder="First name" required="">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="Last_name" id="Last_name" placeholder="Last name" required="">
-                    </div>
+                      <div class="col">
+                          <input type="text" class="form-control" name="First_name" id="First_name" placeholder="First name" required="">
+                      </div>
+                      <div class="col">
+                          <input type="text" class="form-control" name="Last_name" id="Last_name" placeholder="Last name" required="">
+                      </div>
 
-                    <div class="w-100"></div>
-                    <div class="container-fluid" style="margin-top: +10px"></div>
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
 
-                    <div class="col">
-                        <input type="text" class="form-control" name="Asal_Sekolah" id="Asal_Sekolah" placeholder="Asal Sekolah" aria-describedby="inputGroupPrepend2" required="">
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control" name="Umur" id="Umur" placeholder="Umur" required="">
-                    </div>
+                      <div class="col">
+                          <input type="text" class="form-control" name="Asal_Sekolah" id="Asal_Sekolah" placeholder="School/Institution" aria-describedby="inputGroupPrepend2" required="">
+                      </div>
+                      <div class="col">
+                          <input type="number" class="form-control" name="Umur" id="Umur" placeholder="Age" required="">
+                      </div>
 
-                    <div class="w-100"></div>
-                    <div class="container-fluid" style="margin-top: +10px"></div>
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
 
-                    <div class="col">
-                          <input type="number" class="form-control" name="Tinggi_Badan" id="Tinggi_Badan" placeholder="Tinggi Badan" required="">
-                    </div>
-                    <div class="col">
-                          <input type="number" class="form-control" name="Berat_Badan" id="Berat_Badan" placeholder="Berat Badan" required="">
-                    </div>
+                      <div class="col">
+                            <input type="number" class="form-control" name="Tinggi_Badan" id="Tinggi_Badan" placeholder="Height" required="">
+                      </div>
+                      <div class="col">
+                            <input type="number" class="form-control" name="Berat_Badan" id="Berat_Badan" placeholder="Weight" required="">
+                      </div>
 
-                    <div class="w-100"></div>
-                    <div class="container-fluid" style="margin-top: +10px"></div>
-                    
-                    
-                    </div>
-                </div>
+                      <div class="w-100"></div>
+                      <div class="container-fluid" style="margin-top: +10px"></div>
+                      
+                      
+                      </div>
+                  </div>
 
-                <div class="container-fluid" style="margin-top: +20px"></div>   
-                <div class="col">
-                  <button type="button" class="btn btn-outline-success add_data">SUBMIT</button>
-                </div>
+                  <div class="container-fluid" style="margin-top: +20px"></div>   
+                  <div class="col">
+                    <button type="button" class="btn btn-outline-success add_data">SUBMIT</button>
+                  </div>
 
-            </form>
+              </form>
           `;
           
           Swal.fire({
@@ -342,17 +349,7 @@
             $.post("/api/add_point", dt, function(res){
                 if(res.key){
 
-                  const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                  });
-
-                  Toast.fire({
-                    type: 'success',
-                    title: 'Stored in successfully'
-                  })
+                  notif("Stored Successfully");
 
                   get_dt_by_key(res.key)
                 }
@@ -364,15 +361,17 @@
 
         function get_dt_by_key(k){
           $.get(`/api/get_point_data_by_key/${k}`).done(function(res){
-            $(".data__").show().attr("key", res.key);
+            $(".data__").show();
+            $("#step_down").attr("key", res.key)
+            sel_key = res.key;
             $("#open_form").hide();
 
-            $("#fn").val(res.First_name);
-            $("#ln").val(res.Last_name);
-            $("#sc").val(res.Asal_Sekolah);
-            $("#ag").val(res.Umur);
-            $("#wg").val(res.Berat_Badan);
-            $("#hg").val(res.Tinggi_Badan);
+            $("#fn").val(res.data.First_name);
+            $("#ln").val(res.data.Last_name);
+            $("#sc").val(res.data.Asal_Sekolah);
+            $("#ag").val(res.data.Umur);
+            $("#wg").val(res.data.Berat_Badan);
+            $("#hg").val(res.data.Tinggi_Badan);
 
             get_all_data();
             
@@ -387,6 +386,17 @@
           $.get(`/api/get_point_data`).done(function (res) {
               $("#table_data tbody").empty();
               res.forEach((v)=>{
+                let res = 'none';
+                if(v.data.servis_atas){
+                  res = `
+                    <span>State 1 = ${v.data.servis_atas} </span><br/>
+                    <span>State 2 = ${v.data.servis_bawah} </span><br/>
+                    <span>State 3 = ${v.data.passing_atas} </span><br/>
+                    <span>State 4 = ${v.data.passing_bawah} </span><br/>
+                    <span>State 5 = ${v.data.smash} </span><br/>
+                    <span>State 6 = ${v.data.block} </span><br/>
+                  `
+                }
                 let el = `
                   <tr>
                     <th scope="row">${id}</th>
@@ -396,15 +406,29 @@
                       ${v.data.Berat_Badan} Kg / ${v.data.Tinggi_Badan} cm  
                     </td>
                     <td>
-                      <span>State 1 = 10 </span><br/>
-                      <span>State 2 = 10 </span><br/>
-                      <span>State 3 = 10 </span><br/>
+                      ${res}
                     </td>
                   </tr>
                 `;
                 $("#table_data tbody").append(el);
                 id++;
               })
+          })
+        }
+
+
+
+        function notif(txt){
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: 'success',
+            title: txt
           })
         }
 
