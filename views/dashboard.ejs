@@ -390,12 +390,12 @@
                 let res = 'none';
                 if(v.data.servis_atas){
                   res = `
-                    <span class="badge badge-primary">${v.data.servis_atas}</span>
-                    <span class="badge badge-secondary">${v.data.servis_bawah}</span><br/>
-                    <span class="badge badge-success">${v.data.passing_atas}</span>
-                    <span class="badge badge-danger">${v.data.passing_bawah}</span><br/>
-                    <span class="badge badge-warning">${v.data.smash}</span>
-                    <span class="badge badge-info">${v.data.block}</span>
+                    <span class="badge badge-primary">sa = ${v.data.servis_atas}</span>
+                    <span class="badge badge-secondary">sb = ${v.data.servis_bawah}</span><br/>
+                    <span class="badge badge-success">pa = ${v.data.passing_atas}</span>
+                    <span class="badge badge-danger">pb = ${v.data.passing_bawah}</span><br/>
+                    <span class="badge badge-warning">ss = ${v.data.smash}</span>
+                    <span class="badge badge-info">bb = ${v.data.block}</span>
                   `
                 }
                 let el = `
