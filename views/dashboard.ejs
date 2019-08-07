@@ -129,6 +129,7 @@
           </div>
 
           <div class="row">
+            <input type="text" class="form-control" id="search" placeholder="search ..." /><br/>
             <table class="table table-striped" id="table_data">
               <thead>
                 <tr>
@@ -389,12 +390,12 @@
                 let res = 'none';
                 if(v.data.servis_atas){
                   res = `
-                    <span>State 1 = ${v.data.servis_atas} </span><br/>
-                    <span>State 2 = ${v.data.servis_bawah} </span><br/>
-                    <span>State 3 = ${v.data.passing_atas} </span><br/>
-                    <span>State 4 = ${v.data.passing_bawah} </span><br/>
-                    <span>State 5 = ${v.data.smash} </span><br/>
-                    <span>State 6 = ${v.data.block} </span><br/>
+                    <span class="badge badge-primary">${v.data.servis_atas}</span>
+                    <span class="badge badge-secondary">${v.data.servis_bawah}</span><br/>
+                    <span class="badge badge-success">${v.data.passing_atas}</span>
+                    <span class="badge badge-danger">${v.data.passing_bawah}</span><br/>
+                    <span class="badge badge-warning">${v.data.smash}</span>
+                    <span class="badge badge-info">${v.data.block}</span>
                   `
                 }
                 let el = `
@@ -415,6 +416,13 @@
               })
           })
         }
+
+        $("#search").on("keyup", function () {
+            txt = $(this).val().toLowerCase();
+            $("#table_data tr").filter(function () {
+              $(this).toggle($(this).text().toLowerCase().indexOf(txt) > -1);
+            })
+          })
 
 
 
