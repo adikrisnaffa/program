@@ -4,17 +4,39 @@
 <head>
     <title>Analytics</title>
     <!-- Pivot Table -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <link rel="stylesheet" href="/javascripts/pivotjs/pivot.min.css">
     <link rel="stylesheet" href="/javascripts/pivotjs/c3.min.css">
 
     <script src="/javascripts/jquery-3.2.0.min.js"></script>
 
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    
+    <link href="https://getbootstrap.com/docs/4.3/assets/css/docs.min.css" rel="stylesheet">
+
 </head>
 
 <body>
 
-    <div class="container-fluid" style="margin-top: +20px">
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+                <li class="nav-item" style="cursor: pointer">
+                    <a class="nav-link" href="/">Dashboard</a>
+                </li>
+                <li class="nav-item" style="cursor: pointer">
+                    <a class="nav-link active" href="/analytics">Analytics</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container-fluid">
         <div class="bd-example-row">
             <div class="bd-example">
                 <div class="container">

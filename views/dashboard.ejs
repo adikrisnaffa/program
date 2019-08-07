@@ -7,152 +7,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <link href="https://getbootstrap.com/docs/4.3/assets/css/docs.min.css" rel="stylesheet">
 
   </head>
   <body>
-    <div class="container-fluid" style="margin-top: +20px">
+
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">    
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+          <li class="nav-item" style="cursor: pointer">
+            <a class="nav-link active" href="/">Dashboard</a>
+          </li>
+          <li class="nav-item" style="cursor: pointer">
+            <a class="nav-link " href="/analytics">Analytics</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+
+
+    <div class="container-fluid">
 
 
       <div class="bd-example-row">
-      <div class="bd-example">
-      <div class="container">
-        
+        <div class="bd-example">
 
-          <div class="row">
-            <button id="open_form" type="button" class="btn btn-outline-primary" style="margin-bottom: +10px">
-              Add User
-            </button>
-          </div>
-          <div class="row" style="margin-bottom: +20px">          
-            <button id="step_up" type="button" class="btn btn-outline-primary data__" style="display:none;margin-right:15px;margin-bottom: +10px">
-              START
-            </button>
+          <div class="container">
             
-            <button id="step_down" type="button" class="btn btn-outline-danger data__" style="display:none; margin-bottom: +10px">
-              FINISH
-            </button>
-          </div>
 
+              <div class="row" style="margin-top: -15px">
+                <button id="open_form" type="button" class="btn btn-outline-primary" style="margin-bottom: +10px">
+                  Add User
+                </button>
+              </div>
 
-
-          
-          <div class="row">
-            <form>
-        
-                <div class="alert alert-success data__" style="display: none" role="alert">
-                    <h4 class="pricing-header pb-md-4 mx-auto text-center">
-                      IDENTITAS USER   
-                    </h4>
-                    <p></p>
-                    <hr>
-                    <p class="pricing-header mx-auto text-center">
-                        <!-- <div class="container"> -->
-                          <div class="row">                        
-                            <div class="col">
-                              <input type="text" class="form-control" disabled id="fn" placeholder="First name" required="">
-                            </div>
-                            <div class="col">
-                              <input type="text" class="form-control" disabled id="ln" placeholder="Last name" required="">
-                            </div>
-                          </div>
-                          <div class="row" style="margin-top: +15px">
-                            <div class="col">
-                              <input type="text" class="form-control" disabled id="sc" placeholder="School" required="">
-                            </div>
-                            <div class="col">
-                              <input type="text" class="form-control" disabled id="ag" placeholder="Age" required="">
-                            </div>
-                          </div>
-                          <div class="row" style="margin-top: +15px">
-                            <div class="col">
-                              <input type="text" class="form-control" disabled id="wg" placeholder="Weight"
-                                required="">
-                            </div>
-                            <div class="col">
-                              <input type="text" class="form-control" disabled id="hg" placeholder="Height"
-                                required="">
-                            </div>
-                          </div>
-                        <!-- </div> -->
-                    </p>
-                </div>
-
-
-                <div class="container text-center data__" style="display: none">
-                    <div class="row">
-
-                      <div class="col">
-                          <p class="lead">Servis Atas</p>
-                          <h1 class="display-4" id="s1">00</h1>
-                      </div>
-                      <div class="col">
-                          <p class="lead">Servis Bawah</p>
-                          <h1 class="display-4" id="s2">00</h1>
-                      </div>
-                      
-                      <div class="w-100"></div>
-                      <div class="container-fluid" style="margin-top: +10px"></div>
-
-                      <div class="col">
-                          <p class="lead">Pasing Atas</p>
-                          <h1 class="display-4" id="s3">00</h1>
-                      </div>
-                      <div class="col">
-                          <p class="lead">Pasing Bawah</p>
-                          <h1 class="display-4" id="s4">00</h1>
-                      </div>
-                      
-                      <div class="w-100"></div>
-                      <div class="container-fluid" style="margin-top: +10px"></div>
-
-                      <div class="col">
-                          <p class="lead">Smash</p>
-                          <h1 class="display-4" id="s5">00</h1>
-                      </div>
-                      <div class="col">
-                          <p class="lead">Block</p>
-                          <h1 class="display-4" id="s6">00</h1>
-                      </div>
-
-                      <!-- <div class="w-100"></div>
-                      <div class="container-fluid" style="margin-top: +10px"></div>
-
-                      <div class="col">
-                          <button id="add_data" type="button" class="btn btn-primary">Main Menu</button>
-                      </div> -->
-
-                      </div>
-                </div>
-            </form>
-          </div>
-
-          <div class="row">
-            <input type="text" class="form-control" id="search" placeholder="search ..." /><br/>
-            <table class="table table-striped" id="table_data">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Users</th>
-                  <th scope="col">Data</th>
-                </tr>
-              </thead>
-              <tbody>                
+              <div class="row" style="display: none" id="ct_btn">          
+                <button id="step_up" type="button" class="btn btn-outline-primary" style="margin-right:15px;margin-bottom: +10px">
+                  START
+                </button>
                 
-              </tbody>
-            </table>
+                <button id="step_down" type="button" class="btn btn-outline-danger" style="display:none; margin-bottom: +10px">
+                  FINISH
+                </button>
+              </div>
+
+
+
+              
+              <div class="row" style="display: none" id="ct_dt">
+                <form>
+            
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="pricing-header pb-md-4 mx-auto text-center">
+                          IDENTITAS USER   
+                        </h4>
+                        <p></p>
+                        <hr>
+                        <p class="pricing-header mx-auto text-center">
+                            <!-- <div class="container"> -->
+                              <div class="row">                        
+                                <div class="col">
+                                  <input type="text" class="form-control" disabled id="fn" placeholder="First name" required="">
+                                </div>
+                                <div class="col">
+                                  <input type="text" class="form-control" disabled id="ln" placeholder="Last name" required="">
+                                </div>
+                              </div>
+                              <div class="row" style="margin-top: +15px">
+                                <div class="col">
+                                  <input type="text" class="form-control" disabled id="sc" placeholder="School" required="">
+                                </div>
+                                <div class="col">
+                                  <input type="text" class="form-control" disabled id="ag" placeholder="Age" required="">
+                                </div>
+                              </div>
+                              <div class="row" style="margin-top: +15px">
+                                <div class="col">
+                                  <input type="text" class="form-control" disabled id="wg" placeholder="Weight"
+                                    required="">
+                                </div>
+                                <div class="col">
+                                  <input type="text" class="form-control" disabled id="hg" placeholder="Height"
+                                    required="">
+                                </div>
+                              </div>
+                            <!-- </div> -->
+                        </p>
+                    </div>
+
+
+                    <div class="container text-center">
+                        <div class="row">
+
+                          <div class="col">
+                              <p class="lead">Servis Atas</p>
+                              <h1 class="display-4" id="s1">00</h1>
+                          </div>
+                          <div class="col">
+                              <p class="lead">Servis Bawah</p>
+                              <h1 class="display-4" id="s2">00</h1>
+                          </div>
+                          
+                          <div class="w-100"></div>
+                          <div class="container-fluid" style="margin-top: +10px"></div>
+
+                          <div class="col">
+                              <p class="lead">Pasing Atas</p>
+                              <h1 class="display-4" id="s3">00</h1>
+                          </div>
+                          <div class="col">
+                              <p class="lead">Pasing Bawah</p>
+                              <h1 class="display-4" id="s4">00</h1>
+                          </div>
+                          
+                          <div class="w-100"></div>
+                          <div class="container-fluid" style="margin-top: +10px"></div>
+
+                          <div class="col">
+                              <p class="lead">Smash</p>
+                              <h1 class="display-4" id="s5">00</h1>
+                          </div>
+                          <div class="col">
+                              <p class="lead">Block</p>
+                              <h1 class="display-4" id="s6">00</h1>
+                          </div>
+
+                          <!-- <div class="w-100"></div>
+                          <div class="container-fluid" style="margin-top: +10px"></div>
+
+                          <div class="col">
+                              <button id="add_data" type="button" class="btn btn-primary">Main Menu</button>
+                          </div> -->
+
+                          </div>
+                    </div>
+                </form>
+              </div>
+
+              <div class="row">
+                <input type="text" class="form-control" id="search" placeholder="search ..." /><br/>
+                <table class="table table-striped" id="table_data">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Users</th>
+                      <th scope="col">Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>                
+                    
+                  </tbody>
+                </table>
+              </div>
+
+
+
           </div>
 
-
-
+        </div>
+      </div>
     </div>
-    <!-- <input type="text"  id="name" placeholder="name"/>
-    <br/>
-    <button id=" count_up" type="button" class="btn btn-outline-primary">Count Up</button>
-    <br/>
-    <span id="txt"> *** </span> -->
-    <br/>
+
+
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -362,7 +383,9 @@
 
         function get_dt_by_key(k){
           $.get(`/api/get_point_data_by_key/${k}`).done(function(res){
-            $(".data__").show();
+            $("#ct_dt").show();
+            $("#ct_btn").show();
+
             $("#step_down").attr("key", res.key)
             sel_key = res.key;
             $("#open_form").hide();
@@ -443,8 +466,8 @@
           
     </script>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>
